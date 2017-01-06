@@ -18,8 +18,8 @@ import java.util.Arrays;
  */
 public class MainActivityFragment extends Fragment {
 
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
+    private ArrayList<Serie> items;
+    private CustomAdapter adapter;
 
     public MainActivityFragment() {
     }
@@ -34,10 +34,9 @@ public class MainActivityFragment extends Fragment {
 
 
         items = new ArrayList<>();
-        adapter = new ArrayAdapter<>(
+        adapter = new CustomAdapter(
                 getContext(),
                 R.layout.serie_celda,
-                R.id.tvTitle,
                 items
         );
 
@@ -75,7 +74,7 @@ public class MainActivityFragment extends Fragment {
             adapter.clear();
             for (Serie serie: series){
 
-                adapter.add(serie.getName());
+                adapter.add(serie);
             }
         }
     }

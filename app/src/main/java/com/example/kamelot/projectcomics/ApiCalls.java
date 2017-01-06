@@ -54,10 +54,9 @@ public class ApiCalls {
 
                 Serie serie = new Serie();
 
+                //Metemos los datos sacados del json en nuestro objeto.
                 serie.setName(jsonSerie.getString("name"));
                 serie.setTotalepisodes(jsonSerie.getString("count_of_episodes"));
-
-
 
                 series.add(serie);
             }
