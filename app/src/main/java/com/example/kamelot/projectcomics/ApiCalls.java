@@ -52,9 +52,12 @@ public class ApiCalls {
             for (int i = 0; i < jsonSeries.length(); i++) {
                 JSONObject jsonSerie = jsonSeries.getJSONObject(i);
 
+
+
                 Serie serie = new Serie();
 
                 //Metemos los datos sacados del json en nuestro objeto.
+                serie.setImageThumb(jsonSerie.getJSONObject("image").getString("icon_url"));
                 serie.setName(jsonSerie.getString("name"));
                 serie.setTotalepisodes(jsonSerie.getString("count_of_episodes"));
 

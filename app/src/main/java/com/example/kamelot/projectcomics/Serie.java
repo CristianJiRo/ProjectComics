@@ -6,15 +6,24 @@ package com.example.kamelot.projectcomics;
 
 public class Serie {
 
-    private String Totalepisodes;
+    private String totalepisodes;
     private String name;
+    private String imageThumb;
+
+    public String getImageThumb() {
+        return imageThumb;
+    }
+
+    public void setImageThumb(String imageThumb) {
+        this.imageThumb = imageThumb;
+    }
 
     public String getTotalepisodes() {
-        return Totalepisodes;
+        return totalepisodes;
     }
 
     public void setTotalepisodes(String totalepisodes) {
-        Totalepisodes = totalepisodes;
+        this.totalepisodes = totalepisodes;
     }
 
     public String getName() {
@@ -28,7 +37,7 @@ public class Serie {
     @Override
     public String toString() {
         return "Serie{" +
-                "Episodios totales= '" + Totalepisodes + '\'' +
+                "Episodios totales= '" + totalepisodes + '\'' +
                 ", Nombre= '" + name + '\'' +
                 '}';
     }
