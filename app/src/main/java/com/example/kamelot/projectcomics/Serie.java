@@ -1,14 +1,26 @@
 package com.example.kamelot.projectcomics;
 
+import java.io.Serializable;
+
 /**
  * Created by Kamelot on 05/01/2017.
  */
 
-public class Serie {
+public class Serie implements Serializable {
 
-    private String totalepisodes;
     private String name;
+    private String totalepisodes;
     private String imageThumb;
+    private int serieID;
+
+
+    public int getSerieID() {
+        return serieID;
+    }
+
+    public void setSerieID(int serieID) {
+        this.serieID = serieID;
+    }
 
     public String getImageThumb() {
         return imageThumb;

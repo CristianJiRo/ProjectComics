@@ -19,6 +19,12 @@ public class ApiCalls {
     private final String seriesURL =
             "http://comicvine.gamespot.com/api/series_list/?api_key=37953f46b5d8c2f9b10d8cd2d37b0861519a0d3d&limit=5&format=json";
 
+    private final String episodesURL =
+            "http://comicvine.gamespot.com/api/episodes/?api_key=37953f46b5d8c2f9b10d8cd2d37b0861519a0d3d&limit=5&format=json";
+
+
+    //Procesado para las Series.
+
     ArrayList<Serie> getSeries(){
 
         Uri builtUri = Uri.parse(seriesURL)
@@ -26,14 +32,13 @@ public class ApiCalls {
                 .build();
         String url = builtUri.toString();
 
-        return doCall(url);
+        return doCallSerie(url);
     }
-
     @Nullable
-    private ArrayList<Serie> doCall (String url){
+    private ArrayList<Serie> doCallSerie (String url){
         try {
             String JsonResponse = HttpUtils.get(url);
-            return processJson(JsonResponse);
+            return processJsonSerie(JsonResponse);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,7 +47,7 @@ public class ApiCalls {
         return null;
     }
 
-    private ArrayList<Serie> processJson(String jsonResponse){
+    private ArrayList<Serie> processJsonSerie(String jsonResponse){
 
         ArrayList<Serie> series = new ArrayList<>();
 
@@ -52,14 +57,13 @@ public class ApiCalls {
             for (int i = 0; i < jsonSeries.length(); i++) {
                 JSONObject jsonSerie = jsonSeries.getJSONObject(i);
 
-
-
                 Serie serie = new Serie();
 
                 //Metemos los datos sacados del json en nuestro objeto.
                 serie.setImageThumb(jsonSerie.getJSONObject("image").getString("icon_url"));
                 serie.setName(jsonSerie.getString("name"));
                 serie.setTotalepisodes(jsonSerie.getString("count_of_episodes"));
+                serie.setSerieID(jsonSerie.getInt("id"));
 
                 series.add(serie);
             }
@@ -70,4 +74,61 @@ public class ApiCalls {
 
         return series;
     }
+
+
+    //Procesado para los episodios.
+
+    ArrayList<Episode> getEpisodes(){
+
+        Uri builtUri = Uri.parse(episodesURL)
+                .buildUpon()
+                .build();
+        String url = builtUri.toString();
+
+        return doCallEpisode(url);
+
+    }
+
+    @Nullable
+    private ArrayList<Episode> doCallEpisode (String url){
+        try {
+            String JsonResponse = HttpUtils.get(url);
+            return processJsonEpisode(JsonResponse);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private ArrayList<Episode> processJsonEpisode(String jsonResponse){
+
+        ArrayList<Episode> episodes = new ArrayList<>();
+
+        try {
+            JSONObject data = new JSONObject(jsonResponse);
+            JSONArray jsonEpisodes = data.getJSONArray("results");
+            for (int i = 0; i < jsonEpisodes.length(); i++) {
+                JSONObject jsonEpisode = jsonEpisodes.getJSONObject(i);
+
+                Episode episode = new Episode();
+
+                //Metemos los datos sacados del json en nuestro objeto.
+
+                episode.setName(jsonEpisode.getString("name"));
+                episode.setImageThumb(jsonEpisode.getJSONObject("image").getString("icon_url"));
+                episode.setSerie(jsonEpisode.getJSONObject("series").getString("name"));
+                episode.setSerieID(jsonEpisode.getJSONObject("series").getInt("id"));
+
+                episodes.add(episode);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return episodes;
+    }
+
 }
