@@ -2,6 +2,7 @@ package com.example.kamelot.projectcomics;
 
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.text.Html;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,6 +66,8 @@ public class ApiCalls {
                 serie.setTotalepisodes(jsonSerie.getString("count_of_episodes"));
                 serie.setSerieID(jsonSerie.getInt("id"));
 
+                serie.setDescription(jsonSerie.getString("description"));
+
                 series.add(serie);
             }
 
@@ -74,7 +77,7 @@ public class ApiCalls {
 
         return series;
     }
-
+    
 
     //Procesado para los episodios.
 

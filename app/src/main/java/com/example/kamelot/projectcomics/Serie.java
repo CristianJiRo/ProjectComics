@@ -12,7 +12,15 @@ public class Serie implements Serializable {
     private String totalepisodes;
     private String imageThumb;
     private int serieID;
+    private String description;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getSerieID() {
         return serieID;

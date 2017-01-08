@@ -1,5 +1,6 @@
 package com.example.kamelot.projectcomics;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -41,6 +43,18 @@ public class MainActivityFragment extends Fragment {
         );
 
         lvSeries.setAdapter(adapter);
+
+        lvSeries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Serie serie = (Serie) adapterView.getItemAtPosition(i);
+                Intent intent = new Intent(getContext(), SerieActivity.class);
+                intent.putExtra("serie", serie);
+                startActivity(intent);
+
+            }
+        });
 
 
         return view;
