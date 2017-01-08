@@ -12,6 +12,15 @@ public class Episode implements Serializable {
     private String serie;
     private int serieID;
     private String imageThumb;
+    private String number;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
     public String getName() {
         return name;

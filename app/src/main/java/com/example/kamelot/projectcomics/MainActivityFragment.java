@@ -72,6 +72,7 @@ public class MainActivityFragment extends Fragment {
         refresh();
     }
 
+
     private class RefreshDataTask extends AsyncTask<Void, Void, ArrayList<Serie>>{
         @Override
         protected ArrayList<Serie> doInBackground(Void... voids) {
@@ -83,6 +84,8 @@ public class MainActivityFragment extends Fragment {
             return result;
         }
 
+
+
         @Override
         protected void onPostExecute(ArrayList<Serie> series) {
             adapter.clear();
@@ -92,5 +95,6 @@ public class MainActivityFragment extends Fragment {
             }
         }
     }
+
 
 }

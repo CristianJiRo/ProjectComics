@@ -1,18 +1,23 @@
 package com.example.kamelot.projectcomics;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -24,6 +29,10 @@ public class SerieActivityFragment extends Fragment {
     private TextView tvSerieName;
     private TextView tvDescription;
     private TextView tvEpisodesCount;
+    private ListView lvEpisodes;
+
+    private ArrayList<Episode> items;
+    private CustomAdapterEpisodes adapter;
 
     public SerieActivityFragment() {
     }
@@ -56,6 +65,17 @@ public class SerieActivityFragment extends Fragment {
         tvDescription = (TextView) view.findViewById(R.id.tvDescription);
         tvEpisodesCount = (TextView) view.findViewById(R.id.tvEpisodesCount);
 
+        lvEpisodes =(ListView) view.findViewById(R.id.lvEpisodes);
+
+        items = new ArrayList<>();
+        adapter = new CustomAdapterEpisodes(
+                getContext(),
+                R.layout.episode_celda,
+                items
+        );
+
+        lvEpisodes.setAdapter(adapter);
+
 
         Glide.with(getContext()).load(serie.getImageThumb()).into(ivSerieDetail);
         tvSerieName.setText(serie.getName());
@@ -67,4 +87,38 @@ public class SerieActivityFragment extends Fragment {
         tvEpisodesCount.setText("0/"+serie.getTotalepisodes());
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        refresh();
+    }
+
+    private void refresh(){
+
+        SerieActivityFragment.RefreshDataTaskEpisode task = new RefreshDataTaskEpisode();
+        task.execute();
+    }
+
+    private class RefreshDataTaskEpisode extends AsyncTask<Void, Void, ArrayList<Episode>> {
+        @Override
+        protected ArrayList<Episode> doInBackground(Void... voids) {
+
+            ApiCalls api = new ApiCalls();
+            ArrayList<Episode> result = api.getEpisodes();
+            Log.d("Debug", result.toString());
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Episode> episodes) {
+            adapter.clear();
+            for (Episode episode: episodes){
+
+                adapter.add(episode);
+            }
+        }
+    }
+
 }

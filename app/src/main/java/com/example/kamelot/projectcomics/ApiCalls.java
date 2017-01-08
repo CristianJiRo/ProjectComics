@@ -77,7 +77,7 @@ public class ApiCalls {
 
         return series;
     }
-    
+
 
     //Procesado para los episodios.
 
@@ -123,6 +123,7 @@ public class ApiCalls {
                 episode.setImageThumb(jsonEpisode.getJSONObject("image").getString("icon_url"));
                 episode.setSerie(jsonEpisode.getJSONObject("series").getString("name"));
                 episode.setSerieID(jsonEpisode.getJSONObject("series").getInt("id"));
+                episode.setNumber(jsonEpisode.getString("episode_number"));
 
                 episodes.add(episode);
             }
