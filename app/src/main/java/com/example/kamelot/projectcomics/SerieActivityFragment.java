@@ -30,6 +30,8 @@ public class SerieActivityFragment extends Fragment {
     private TextView tvDescription;
     private TextView tvEpisodesCount;
     private ListView lvEpisodes;
+    private int serieID;
+
 
     private ArrayList<Episode> items;
     private CustomAdapterEpisodes adapter;
@@ -86,6 +88,7 @@ public class SerieActivityFragment extends Fragment {
 
         tvEpisodesCount.setText("0/"+serie.getTotalepisodes());
 
+        serieID = serie.getSerieID();
     }
 
     @Override
@@ -105,7 +108,7 @@ public class SerieActivityFragment extends Fragment {
         protected ArrayList<Episode> doInBackground(Void... voids) {
 
             ApiCalls api = new ApiCalls();
-            ArrayList<Episode> result = api.getEpisodes();
+            ArrayList<Episode> result = api.getEpisodes(serieID);
             Log.d("Debug", result.toString());
 
             return result;
