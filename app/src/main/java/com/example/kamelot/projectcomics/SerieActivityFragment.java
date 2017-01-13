@@ -1,6 +1,7 @@
 package com.example.kamelot.projectcomics;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.kamelot.projectcomics.databinding.FragmentSerieBinding;
 
 import java.util.ArrayList;
 
@@ -24,13 +26,14 @@ import java.util.ArrayList;
  */
 public class SerieActivityFragment extends Fragment {
 
-    private View view;
-    private ImageView ivSerieDetail;
-    private TextView tvSerieName;
-    private TextView tvDescription;
-    private TextView tvEpisodesCount;
-    private ListView lvEpisodes;
-    private int serieID;
+//    private View view;
+//    private ImageView ivSerieDetail;
+//    private TextView tvSerieName;
+//    private TextView tvDescription;
+//    private TextView tvEpisodesCount;
+//    private ListView lvEpisodes;
+      private int serieID;
+    private FragmentSerieBinding binding;
 
 
     private ArrayList<Episode> items;
@@ -42,7 +45,14 @@ public class SerieActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_serie, container, false);
+//        view = inflater.inflate(R.layout.fragment_serie, container, false);
+
+        binding= DataBindingUtil.inflate(
+                inflater, R.layout.fragment_serie, container, false);
+
+        View view = binding.getRoot();
+
+
 
         Intent i = getActivity().getIntent();
 
@@ -62,12 +72,12 @@ public class SerieActivityFragment extends Fragment {
     private void updateUi(Serie serie){
 
 
-        ivSerieDetail = (ImageView) view.findViewById(R.id.ivSerieDetail);
-        tvSerieName = (TextView) view.findViewById(R.id.tvSerieName);
-        tvDescription = (TextView) view.findViewById(R.id.tvDescription);
-        tvEpisodesCount = (TextView) view.findViewById(R.id.tvEpisodesCount);
-
-        lvEpisodes =(ListView) view.findViewById(R.id.lvEpisodes);
+//        ivSerieDetail = (ImageView) view.findViewById(R.id.ivSerieDetail);
+//        tvSerieName = (TextView) view.findViewById(R.id.tvSerieName);
+//        tvDescription = (TextView) view.findViewById(R.id.tvDescription);
+//        tvEpisodesCount = (TextView) view.findViewById(R.id.tvEpisodesCount);
+//
+//        lvEpisodes =(ListView) view.findViewById(R.id.lvEpisodes);
 
         items = new ArrayList<>();
         adapter = new CustomAdapterEpisodes(
@@ -76,17 +86,17 @@ public class SerieActivityFragment extends Fragment {
                 items
         );
 
-        lvEpisodes.setAdapter(adapter);
+        binding.lvEpisodes.setAdapter(adapter);
 
 
-        Glide.with(getContext()).load(serie.getImageThumb()).into(ivSerieDetail);
-        tvSerieName.setText(serie.getName());
+        Glide.with(getContext()).load(serie.getImageThumb()).into(binding.ivSerieDetail);
+        binding.tvSerieName.setText(serie.getName());
         //Para quitar las etiquetas HTML, el metodo esta deprecated, pero la aternativa solo funciona en Apis superiores a esta.
         String descripcion = Html.fromHtml(serie.getDescription()).toString();
-        tvDescription.setText(descripcion);
-        tvDescription.setMovementMethod(new ScrollingMovementMethod());
+        binding.tvDescription.setText(descripcion);
+        binding.tvDescription.setMovementMethod(new ScrollingMovementMethod());
 
-        tvEpisodesCount.setText("0/"+serie.getTotalepisodes());
+        binding.tvEpisodesCount.setText("0/"+serie.getTotalepisodes());
 
         serieID = serie.getSerieID();
     }

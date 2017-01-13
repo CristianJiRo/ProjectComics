@@ -1,6 +1,7 @@
 package com.example.kamelot.projectcomics;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,11 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-import java.util.Arrays;
+import com.example.kamelot.projectcomics.databinding.FragmentMainBinding;
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -22,6 +22,7 @@ public class MainActivityFragment extends Fragment {
 
     private ArrayList<Serie> items;
     private CustomAdapter adapter;
+    private FragmentMainBinding binding;
 
     public MainActivityFragment() {
     }
@@ -29,11 +30,12 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        FragmentMainBinding binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_main, container, false);
 
 
-        ListView lvSeries = (ListView) view.findViewById(R.id.lvSeries);
-
+        View view = binding.getRoot();
 
         items = new ArrayList<>();
         adapter = new CustomAdapter(
@@ -42,9 +44,8 @@ public class MainActivityFragment extends Fragment {
                 items
         );
 
-        lvSeries.setAdapter(adapter);
-
-        lvSeries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.lvSeries.setAdapter(adapter);
+        binding.lvSeries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
