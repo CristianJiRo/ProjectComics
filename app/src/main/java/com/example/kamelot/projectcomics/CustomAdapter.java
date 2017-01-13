@@ -7,11 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 import com.example.kamelot.projectcomics.databinding.SerieCeldaBinding;
 
@@ -45,12 +41,6 @@ public class CustomAdapter extends ArrayAdapter<Serie>{
 
             binding = DataBindingUtil.getBinding(convertView);
         }
-
-        //Enlaces con los componentes del layout.
-//        TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-//        TextView tvEpiTot = (TextView) convertView.findViewById(R.id.tvEpiTot);
-//        ImageView ivPoster = (ImageView) convertView.findViewById(R.id.ivPoster);
-
 
         //Introducción de los datos.
         binding.tvTitle.setText(serie.getName());

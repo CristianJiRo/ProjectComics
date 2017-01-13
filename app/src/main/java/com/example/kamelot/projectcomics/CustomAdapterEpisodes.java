@@ -7,11 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 import com.example.kamelot.projectcomics.databinding.EpisodeCeldaBinding;
 
@@ -39,17 +35,10 @@ public class CustomAdapterEpisodes extends ArrayAdapter<Episode>{
             LayoutInflater inflater = LayoutInflater.from(getContext());
             binding = DataBindingUtil.inflate(inflater, R.layout.episode_celda, parent, false);
 
-
         }
         else {
             binding = DataBindingUtil.getBinding(convertView);
         }
-
-        //Enlaces con los componentes del layout.
-//        TextView tvTitleEpisode = (TextView) convertView.findViewById(R.id.tvNameEpisode);
-//        TextView tvEpisodeNumber = (TextView) convertView.findViewById(R.id.tvEpisodeNumber);
-//        ImageView ivEpisodePoster = (ImageView) convertView.findViewById(R.id.ivEpisodePoster);
-
 
         //Introducción de los datos.
         binding.tvNameEpisode.setText(episode.getName());

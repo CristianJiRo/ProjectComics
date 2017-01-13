@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import java.util.ArrayList;
 import com.example.kamelot.projectcomics.databinding.FragmentMainBinding;
 
@@ -84,8 +83,6 @@ public class MainActivityFragment extends Fragment {
 
             return result;
         }
-
-
 
         @Override
         protected void onPostExecute(ArrayList<Serie> series) {

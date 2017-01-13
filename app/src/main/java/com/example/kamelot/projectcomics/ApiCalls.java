@@ -91,15 +91,10 @@ public class ApiCalls {
     ArrayList<Episode> getEpisodes(int id){
 
 
-
-
             Uri builtUri = Uri.parse(episodesURL)
                     .buildUpon()
                     .build();
             String url = builtUri.toString();
-
-
-
 
             return doCallEpisode(url, id);
 

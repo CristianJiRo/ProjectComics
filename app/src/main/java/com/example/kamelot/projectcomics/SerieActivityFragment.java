@@ -11,14 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.kamelot.projectcomics.databinding.FragmentSerieBinding;
-
 import java.util.ArrayList;
 
 /**
@@ -26,12 +20,6 @@ import java.util.ArrayList;
  */
 public class SerieActivityFragment extends Fragment {
 
-//    private View view;
-//    private ImageView ivSerieDetail;
-//    private TextView tvSerieName;
-//    private TextView tvDescription;
-//    private TextView tvEpisodesCount;
-//    private ListView lvEpisodes;
       private int serieID;
     private FragmentSerieBinding binding;
 
@@ -45,7 +33,6 @@ public class SerieActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        view = inflater.inflate(R.layout.fragment_serie, container, false);
 
         binding= DataBindingUtil.inflate(
                 inflater, R.layout.fragment_serie, container, false);
@@ -71,14 +58,6 @@ public class SerieActivityFragment extends Fragment {
 
     private void updateUi(Serie serie){
 
-
-//        ivSerieDetail = (ImageView) view.findViewById(R.id.ivSerieDetail);
-//        tvSerieName = (TextView) view.findViewById(R.id.tvSerieName);
-//        tvDescription = (TextView) view.findViewById(R.id.tvDescription);
-//        tvEpisodesCount = (TextView) view.findViewById(R.id.tvEpisodesCount);
-//
-//        lvEpisodes =(ListView) view.findViewById(R.id.lvEpisodes);
-
         items = new ArrayList<>();
         adapter = new CustomAdapterEpisodes(
                 getContext(),
@@ -88,9 +67,9 @@ public class SerieActivityFragment extends Fragment {
 
         binding.lvEpisodes.setAdapter(adapter);
 
-
         Glide.with(getContext()).load(serie.getImageThumb()).into(binding.ivSerieDetail);
         binding.tvSerieName.setText(serie.getName());
+
         //Para quitar las etiquetas HTML, el metodo esta deprecated, pero la aternativa solo funciona en Apis superiores a esta.
         String descripcion = Html.fromHtml(serie.getDescription()).toString();
         binding.tvDescription.setText(descripcion);
