@@ -88,7 +88,7 @@ public class ApiCalls {
 
     //Procesado para los episodios.
 
-    ArrayList<Episode> getEpisodes(int id){
+    ArrayList<Episode> getEpisodes(){
 
 
             Uri builtUri = Uri.parse(episodesURL)
@@ -96,12 +96,12 @@ public class ApiCalls {
                     .build();
             String url = builtUri.toString();
 
-            return doCallEpisode(url, id);
+            return doCallEpisode(url);
 
     }
 
     @Nullable
-    private ArrayList<Episode> doCallEpisode (String url, int id){
+    private ArrayList<Episode> doCallEpisode (String url){
 
         ArrayList<Episode> episodes = new ArrayList<>();
         try {
@@ -110,7 +110,7 @@ public class ApiCalls {
                 url += "&offset=" + String.valueOf(i) + "&format=json";
 
                 String JsonResponse = HttpUtils.get(url);
-                ArrayList<Episode> pagina  = processJsonEpisode(JsonResponse, id);
+                ArrayList<Episode> pagina  = processJsonEpisode(JsonResponse);
                 episodes.addAll(pagina);
 
             }
@@ -121,7 +121,7 @@ public class ApiCalls {
         return episodes;
     }
 
-    private ArrayList<Episode> processJsonEpisode(String jsonResponse, int id){
+    private ArrayList<Episode> processJsonEpisode(String jsonResponse){
 
         ArrayList<Episode> episodes = new ArrayList<>();
 
@@ -133,10 +133,10 @@ public class ApiCalls {
                 JSONObject jsonEpisode = jsonEpisodes.getJSONObject(i);
 
 
-                int serieID=(jsonEpisode.getJSONObject("series").getInt("id"));
+                //int serieID=(jsonEpisode.getJSONObject("series").getInt("id"));
 
                 //Añadimos solo los episodios de la serie.
-                if (serieID==id) {
+//                if (serieID==id) {
                     Episode episode = new Episode();
 
                     //Metemos los datos sacados del json en nuestro objeto.
@@ -151,7 +151,7 @@ public class ApiCalls {
 
                     episodes.add(episode);
                 }
-            }
+//            }
 
         } catch (JSONException e) {
             e.printStackTrace();

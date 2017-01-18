@@ -97,7 +97,7 @@ public class SerieActivityFragment extends Fragment {
         protected ArrayList<Episode> doInBackground(Void... voids) {
 
             ApiCalls api = new ApiCalls();
-            ArrayList<Episode> result = api.getEpisodes(serieID);
+            ArrayList<Episode> result = api.getEpisodes();
             Log.d("Debug", result.toString());
 
             return result;

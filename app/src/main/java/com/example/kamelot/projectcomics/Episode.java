@@ -53,4 +53,15 @@ public class Episode implements Serializable {
     public void setImageThumb(String imageThumb) {
         this.imageThumb = imageThumb;
     }
+
+    @Override
+    public String toString() {
+        return "Episode{" +
+                "name='" + name + '\'' +
+                ", serie='" + serie + '\'' +
+                ", serieID=" + serieID +
+                ", imageThumb='" + imageThumb + '\'' +
+                ", number='" + number + '\'' +
+                '}';
+    }
 }

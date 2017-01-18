@@ -1,27 +1,29 @@
 package com.example.kamelot.projectcomics;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import java.util.ArrayList;
+
 import com.example.kamelot.projectcomics.databinding.FragmentMainBinding;
+
+import java.util.ArrayList;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    private ArrayList<Serie> items;
-    private CustomAdapter adapter;
-    private FragmentMainBinding binding;
+    private SeriesCursorAdapter adapter;
 
     public MainActivityFragment() {
     }
@@ -36,12 +38,8 @@ public class MainActivityFragment extends Fragment {
 
         View view = binding.getRoot();
 
-        items = new ArrayList<>();
-        adapter = new CustomAdapter(
-                getContext(),
-                R.layout.serie_celda,
-                items
-        );
+
+        adapter = new SeriesCursorAdapter(getContext(),Serie.class);
 
         binding.lvSeries.setAdapter(adapter);
         binding.lvSeries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -52,10 +50,10 @@ public class MainActivityFragment extends Fragment {
                 Intent intent = new Intent(getContext(), SerieActivity.class);
                 intent.putExtra("serie", serie);
                 startActivity(intent);
-
             }
         });
 
+        getLoaderManager().initLoader(0, null, this);
 
         return view;
     }
@@ -72,26 +70,40 @@ public class MainActivityFragment extends Fragment {
         refresh();
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return DataManager.getCursorLoader(getContext(), false);
+    }
 
-    private class RefreshDataTask extends AsyncTask<Void, Void, ArrayList<Serie>>{
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+        adapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+        adapter.swapCursor(null);
+
+    }
+
+    private class RefreshDataTask extends AsyncTask<Void, Void, Void>{
         @Override
-        protected ArrayList<Serie> doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids) {
 
             ApiCalls api = new ApiCalls();
-            ArrayList<Serie> result = api.getSeries();
-            Log.d("Debug", result.toString());
 
-            return result;
+            ArrayList<Episode> resultEpisode =api.getEpisodes();
+            ArrayList<Serie> resultSerie = api.getSeries();
+
+            DataManager.deleteBD(getContext());
+            DataManager.crearBD(resultSerie, resultEpisode, getContext());
+
+            return null;
         }
 
-        @Override
-        protected void onPostExecute(ArrayList<Serie> series) {
-            adapter.clear();
-            for (Serie serie: series){
 
-                adapter.add(serie);
-            }
-        }
     }
 
 
