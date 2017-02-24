@@ -1,10 +1,13 @@
 package com.example.kamelot.projectcomics;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -18,14 +21,15 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SerieActivityFragment extends Fragment {
+public class SerieActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-      private int serieID;
+    private int serieID;
     private FragmentSerieBinding binding;
 
 
-    private ArrayList<Episode> items;
-    private CustomAdapterEpisodes adapter;
+    //private ArrayList<Episode> items;
+
+    private EpisodesCursosAdapter adapter;
 
     public SerieActivityFragment() {
     }
@@ -39,8 +43,6 @@ public class SerieActivityFragment extends Fragment {
 
         View view = binding.getRoot();
 
-
-
         Intent i = getActivity().getIntent();
 
         if (i !=null){
@@ -52,20 +54,17 @@ public class SerieActivityFragment extends Fragment {
             }
         }
 
-
         return view;
     }
 
     private void updateUi(Serie serie){
 
-        items = new ArrayList<>();
-        adapter = new CustomAdapterEpisodes(
-                getContext(),
-                R.layout.episode_celda,
-                items
-        );
+        //items = new ArrayList<>();
+        adapter = new EpisodesCursosAdapter(getContext(),Episode.class);
 
         binding.lvEpisodes.setAdapter(adapter);
+
+        getLoaderManager().initLoader(0, null, this);
 
         Glide.with(getContext()).load(serie.getImageThumb()).into(binding.ivSerieDetail);
         binding.tvSerieName.setText(serie.getName());
@@ -83,34 +82,23 @@ public class SerieActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        refresh();
     }
 
-    private void refresh(){
-
-        SerieActivityFragment.RefreshDataTaskEpisode task = new RefreshDataTaskEpisode();
-        task.execute();
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return DataManager.getCursorLoader(getContext(),true);
     }
 
-    private class RefreshDataTaskEpisode extends AsyncTask<Void, Void, ArrayList<Episode>> {
-        @Override
-        protected ArrayList<Episode> doInBackground(Void... voids) {
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        adapter.swapCursor(data);
 
-            ApiCalls api = new ApiCalls();
-            ArrayList<Episode> result = api.getEpisodes();
-            Log.d("Debug", result.toString());
+    }
 
-            return result;
-        }
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        adapter.swapCursor(null);
 
-        @Override
-        protected void onPostExecute(ArrayList<Episode> episodes) {
-            adapter.clear();
-            for (Episode episode: episodes){
-
-                adapter.add(episode);
-            }
-        }
     }
 
 }
