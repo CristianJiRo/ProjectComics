@@ -77,6 +77,8 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
         binding.tvEpisodesCount.setText("0/"+serie.getTotalepisodes());
 
         serieID = serie.getSerieID();
+        String ID = Integer.toString(serieID);
+        Log.d("ID---------------------", ID);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.example.kamelot.projectcomics;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.content.CursorLoader;
 import android.net.Uri;
 import android.util.Log;
@@ -23,7 +25,6 @@ public class DataManager {
     private static Uri episodeUri = helper.getUri(Episode.class);
     private static Uri serieUri = helper.getUri(Serie.class);
 
-
     static  void crearBD (ArrayList<Serie> resultSerie, ArrayList<Episode> resultEpisode, Context context){
 
         cupboard().withContext(context).put(episodeUri, Episode.class, resultEpisode);
@@ -44,7 +45,11 @@ public class DataManager {
 
         if(episode){
 
-            return new CursorLoader(context, episodeUri, null, null, null, null );
+            String selection = "( serieID =?)";
+            String [] selectionArgs = new String[1];
+            selectionArgs[0] = "8";
+
+            return new CursorLoader(context, episodeUri, null, selection, selectionArgs,  null );
         }
         else {
 
