@@ -18,12 +18,10 @@ import java.util.ArrayList;
 public class ApiCalls {
 
     private final String seriesURL =
-            "http://comicvine.gamespot.com/api/series_list/?api_key=37953f46b5d8c2f9b10d8cd2d37b0861519a0d3d";
+            "http://comicvine.gamespot.com/api/series_list/?api_key=37953f46b5d8c2f9b10d8cd2d37b0861519a0d3d&sort=name:asc";
 
     private final String episodesURL =
             "http://comicvine.gamespot.com/api/episodes/?api_key=37953f46b5d8c2f9b10d8cd2d37b0861519a0d3d";
-
-
 
     //Procesado para las Series.
 

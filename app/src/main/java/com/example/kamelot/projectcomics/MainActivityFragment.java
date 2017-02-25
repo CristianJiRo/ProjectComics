@@ -72,14 +72,15 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
         getLoaderManager().initLoader(0, null, this);
 
-        if (preferences.getBoolean("first_time", true)){
+//        if (preferences.getBoolean("first_time", true)){
 
             editor.putBoolean("first_time", false);
             dialog = new ProgressDialog(getContext());
+            dialog.setCanceledOnTouchOutside(false);
             dialog.setMessage("Creating DataBase...");
             refresh();
 
-        }
+        //}
 
         return view;
     }
