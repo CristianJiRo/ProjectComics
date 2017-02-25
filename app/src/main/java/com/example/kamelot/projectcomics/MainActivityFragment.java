@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private SeriesCursorAdapter adapter;
+    private SharedPreferences preferences;
 
     public MainActivityFragment() {
     }
@@ -39,6 +40,8 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         FragmentMainBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_main, container, false);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        final SharedPreferences.Editor editor = preferences.edit();
 
         View view = binding.getRoot();
 
@@ -50,15 +53,29 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+
+
                 Serie serie = (Serie) adapterView.getItemAtPosition(i);
+
+                editor.putString("selected_id", Integer.toString(serie.getSerieID()));
+                editor.commit();
+
+                Log.d("selected_id----------",preferences.getString("selected_id", "1"));
+
                 Intent intent = new Intent(getContext(), SerieActivity.class);
                 intent.putExtra("serie", serie);
                 startActivity(intent);
             }
         });
 
-
         getLoaderManager().initLoader(0, null, this);
+
+        if (preferences.getBoolean("first_time", true)){
+
+            editor.putBoolean("first_time", false);
+            refresh();
+
+        }
 
         return view;
     }
@@ -72,7 +89,9 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onStart() {
         super.onStart();
-        refresh();
+
+
+
     }
 
     @Override

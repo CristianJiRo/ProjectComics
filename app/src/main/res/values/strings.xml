@@ -2,4 +2,7 @@
     <string name="app_name">ProjectComics</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_serie">SerieActivity</string>
+
+    <bool name="first_time">true</bool>
+    <string name="selected_id">8</string>
 </resources>

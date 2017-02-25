@@ -25,6 +25,8 @@ public class DataManager {
     private static Uri episodeUri = helper.getUri(Episode.class);
     private static Uri serieUri = helper.getUri(Serie.class);
 
+    private static SharedPreferences preferences;
+
     static  void crearBD (ArrayList<Serie> resultSerie, ArrayList<Episode> resultEpisode, Context context){
 
         cupboard().withContext(context).put(episodeUri, Episode.class, resultEpisode);
@@ -45,9 +47,14 @@ public class DataManager {
 
         if(episode){
 
+            preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+            Log.d("selected_id----------",preferences.getString("selected_id", "8"));
+
+            String idSerie = preferences.getString("selected_id", "8");
             String selection = "( serieID =?)";
             String [] selectionArgs = new String[1];
-            selectionArgs[0] = "8";
+            selectionArgs[0] =idSerie;
 
             return new CursorLoader(context, episodeUri, null, selection, selectionArgs,  null );
         }

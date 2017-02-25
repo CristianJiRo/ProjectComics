@@ -2,6 +2,7 @@ package com.example.kamelot.projectcomics;
 
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +41,7 @@ public class ApiCalls {
         ArrayList<Serie> series = new ArrayList<Serie>();
         try {
 
-
+            //566
             for (int i = 0; i < 600 ; i+=100) {
 
                 url += "&offset=" + String.valueOf(i) + "&format=json";
@@ -106,11 +107,12 @@ public class ApiCalls {
         ArrayList<Episode> episodes = new ArrayList<>();
         try {
             //20814
-            for (int i = 0; i <400  ; i+=100) {
+            for (int i = 0; i <600  ; i+=100) {
                 url += "&offset=" + String.valueOf(i) + "&format=json";
 
                 String JsonResponse = HttpUtils.get(url);
                 ArrayList<Episode> pagina  = processJsonEpisode(JsonResponse);
+                Log.d("pagina:--------- ", Integer.toString(i));
                 episodes.addAll(pagina);
 
             }
