@@ -1,5 +1,6 @@
 package com.example.kamelot.projectcomics;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -28,6 +29,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
     private SeriesCursorAdapter adapter;
     private SharedPreferences preferences;
+    private ProgressDialog dialog;
 
     public MainActivityFragment() {
     }
@@ -73,6 +75,8 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         if (preferences.getBoolean("first_time", true)){
 
             editor.putBoolean("first_time", false);
+            dialog = new ProgressDialog(getContext());
+            dialog.setMessage("Creating DataBase...");
             refresh();
 
         }
@@ -89,8 +93,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onStart() {
         super.onStart();
-
-
 
     }
 
@@ -114,6 +116,12 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
     private class RefreshDataTask extends AsyncTask<Void, Void, Void>{
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.show();
+        }
+
+        @Override
         protected Void doInBackground(Void... voids) {
 
             ApiCalls api = new ApiCalls();
@@ -125,6 +133,11 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             DataManager.crearBD(resultSerie, resultEpisode, getContext());
 
             return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            dialog.dismiss();
         }
 
 
