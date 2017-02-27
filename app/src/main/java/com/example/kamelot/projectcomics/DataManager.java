@@ -1,5 +1,6 @@
 package com.example.kamelot.projectcomics;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -32,6 +33,7 @@ public class DataManager {
         cupboard().withContext(context).put(episodeUri, Episode.class, resultEpisode);
         cupboard().withContext(context).put(serieUri, Serie.class, resultSerie);
 
+
         Log.d("Debug Serie", resultSerie.toString());
         Log.d("Debug Episode", resultEpisode.toString());
 
@@ -42,6 +44,20 @@ public class DataManager {
         cupboard().withContext(context).delete(episodeUri, "_id >?", "0");
         cupboard().withContext(context).delete(serieUri, "_id >?", "0");
     }
+
+    static void obtenerBD (Context context){
+
+        cupboard().withContext(context).get(episodeUri, Episode.class);
+        cupboard().withContext(context).get(serieUri, Serie.class);
+    }
+
+    static void updateItem (Context context, String id, String fav){
+        ContentValues values = new ContentValues(1);
+        values.put("fav", fav);
+
+        cupboard().withContext(context).update(serieUri, values, "serieID = ?", id );
+    }
+
 
     static CursorLoader getCursorLoader (Context context, Boolean episode) {
 

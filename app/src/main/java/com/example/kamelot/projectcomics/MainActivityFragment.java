@@ -22,6 +22,7 @@ import com.example.kamelot.projectcomics.databinding.FragmentMainBinding;
 import java.util.ArrayList;
 
 
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -30,6 +31,9 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     private SeriesCursorAdapter adapter;
     private SharedPreferences preferences;
     private ProgressDialog dialog;
+    private DataManager dm = new DataManager();
+
+    private FragmentMainBinding binding;
 
     public MainActivityFragment() {
     }
@@ -39,7 +43,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
                              Bundle savedInstanceState) {
 
 
-        FragmentMainBinding binding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_main, container, false);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -47,22 +51,42 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
         View view = binding.getRoot();
 
+        Log.d("Dibujado", "XXXXXXx");
+
+        getLoaderManager().initLoader(0, null, this);
+
+        if (preferences.getBoolean("first_time", true)){
+
+            editor.putBoolean("first_time", false);
+            dialog = new ProgressDialog(getContext());
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setMessage("Loading...");
+            Log.d("Crear base de datos", "");
+            refresh();
+
+        }
+        else {
+
+
+            dm.obtenerBD(getContext());
+            Log.d("Recuperacion de datos", "");
+
+        }
 
         adapter = new SeriesCursorAdapter(getContext(),Serie.class);
 
         binding.lvSeries.setAdapter(adapter);
+
         binding.lvSeries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
 
                 Serie serie = (Serie) adapterView.getItemAtPosition(i);
 
                 editor.putString("selected_id", Integer.toString(serie.getSerieID()));
                 editor.commit();
 
-                Log.d("selected_id----------",preferences.getString("selected_id", "1"));
+//                Log.d("selected_id----------",preferences.getString("selected_id", "1"));
 
                 Intent intent = new Intent(getContext(), SerieActivity.class);
                 intent.putExtra("serie", serie);
@@ -70,19 +94,15 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             }
         });
 
-        getLoaderManager().initLoader(0, null, this);
-
-//        if (preferences.getBoolean("first_time", true)){
-
-            editor.putBoolean("first_time", false);
-            dialog = new ProgressDialog(getContext());
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.setMessage("Creating DataBase...");
-            refresh();
-
-        //}
-
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        dm.obtenerBD(getContext());
+        binding.lvSeries.invalidateViews();
+
     }
 
     private void refresh(){
@@ -140,9 +160,5 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             super.onPostExecute(aVoid);
             dialog.dismiss();
         }
-
-
     }
-
-
 }

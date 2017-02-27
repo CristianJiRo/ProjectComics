@@ -13,6 +13,15 @@ public class Serie implements Serializable {
     private String imageThumb;
     private int serieID;
     private String description;
+    private boolean fav;
+
+    public boolean isFav() {
+        return fav;
+    }
+
+    public void setFav(boolean fav) {
+        this.fav = fav;
+    }
 
     public String getDescription() {
         return description;

@@ -40,5 +40,14 @@ public class SeriesCursorAdapter extends  CupBoardCursorAdapter<Serie> {
         binding.tvEpiTot.setText("0/"+model.getTotalepisodes());
         Glide.with(context).load(model.getImageThumb()).into(binding.ivPoster);
 
+        if (model.isFav()){
+
+            binding.ivFavoritos.setImageResource(R.drawable.ic_fav);
+        }
+        else {
+
+            binding.ivFavoritos.setImageResource(R.drawable.ic_no_fav);
+        }
+
     }
 }

@@ -25,9 +25,7 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
 
     private int serieID;
     private FragmentSerieBinding binding;
-
-
-    //private ArrayList<Episode> items;
+    private DataManager dm;
 
     private EpisodesCursosAdapter adapter;
 
@@ -57,9 +55,8 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
         return view;
     }
 
-    private void updateUi(Serie serie){
+    private void updateUi(final Serie serie){
 
-        //items = new ArrayList<>();
         adapter = new EpisodesCursosAdapter(getContext(),Episode.class);
 
         binding.lvEpisodes.setAdapter(adapter);
@@ -79,6 +76,33 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
         serieID = serie.getSerieID();
         String ID = Integer.toString(serieID);
         Log.d("ID---------------------", ID);
+
+        if (serie.isFav()){
+
+            binding.ibFav.setImageResource(R.drawable.ic_fav);
+        }
+        else {
+
+            binding.ibFav.setImageResource(R.drawable.ic_no_fav);
+        }
+
+        binding.ibFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                serie.setFav(!serie.isFav());
+
+                String fav = Boolean.toString(serie.isFav());
+
+                Log.d("Favorito:    ", fav);
+
+                dm.updateItem(getContext(),Integer.toString(serie.getSerieID()) , fav );
+
+                updateUi(serie);
+            }
+        });
+
     }
 
     @Override

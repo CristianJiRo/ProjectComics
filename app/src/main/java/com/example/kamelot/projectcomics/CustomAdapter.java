@@ -47,6 +47,9 @@ public class CustomAdapter extends ArrayAdapter<Serie>{
         binding.tvEpiTot.setText("0/"+serie.getTotalepisodes());
         Glide.with(getContext()).load(serie.getImageThumb()).into(binding.ivPoster);
 
+
+
+
         return binding.getRoot();
     }
 }

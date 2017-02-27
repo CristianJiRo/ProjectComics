@@ -72,6 +72,8 @@ public class ApiCalls {
                 serie.setTotalepisodes(jsonSerie.getString("count_of_episodes"));
                 serie.setSerieID(jsonSerie.getInt("id"));
 
+                serie.setFav(false);
+
                 serie.setDescription(jsonSerie.getString("description"));
 
                 series.add(serie);
