@@ -41,6 +41,16 @@ public class EpisodesCursosAdapter extends CupBoardCursorAdapter<Episode> {
         binding.tvNameEpisode.setText(model.getName());
         Glide.with(context).load(model.getImageThumb()).into(binding.ivEpisodePoster);
 
+        if (model.getVista()==0) {
+
+            binding.ivVisto.setImageResource(R.drawable.ic_no_vista);
+
+        }
+        else {
+
+            binding.ivVisto.setImageResource(R.drawable.ic_vista);
+        }
+
     }
 
 }

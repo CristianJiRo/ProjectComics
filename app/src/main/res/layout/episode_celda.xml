@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout >
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -39,6 +39,16 @@
             android:layout_marginStart="8dp"
             app:layout_constraintLeft_toRightOf="@+id/ivEpisodePoster"
             android:layout_marginLeft="8dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_no_vista"
+            android:id="@+id/iv_visto"
+            app:layout_constraintBottom_toBottomOf="@+id/ivEpisodePoster"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="8dp" />
 
 
 </android.support.constraint.ConstraintLayout>

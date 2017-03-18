@@ -73,6 +73,7 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
 
         binding.tvEpisodesCount.setText("0/"+serie.getTotalepisodes());
 
+
         serieID = serie.getSerieID();
         String ID = Integer.toString(serieID);
         Log.d("ID---------------------", ID);
@@ -101,7 +102,7 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
 
                 Log.d("Favorito:    ", Integer.toString(serie.getFav()));
 
-                dm.updateItem(getContext(),Integer.toString(serie.getSerieID()) , serie.getFav());
+                dm.updateSerie(getContext(),Integer.toString(serie.getSerieID()) , serie.getFav());
 
                 updateUi(serie);
             }

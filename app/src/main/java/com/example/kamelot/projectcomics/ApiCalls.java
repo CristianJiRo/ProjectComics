@@ -40,7 +40,7 @@ public class ApiCalls {
         try {
 
             //566
-            for (int i = 0; i < 600 ; i+=100) {
+            for (int i = 0; i < 100 ; i+=100) {
 
                 url += "&offset=" + String.valueOf(i) + "&format=json";
                 String JsonResponse = HttpUtils.get(url);
@@ -66,7 +66,6 @@ public class ApiCalls {
                 JSONObject jsonSerie = jsonSeries.getJSONObject(i);
 
                 Serie serie = new Serie();
-                Log.d("Serie pagina: ", Integer.toString(i));
 
                 //Metemos los datos sacados del json en nuestro objeto.
                 serie.setImageThumb(jsonSerie.getJSONObject("image").getString("icon_url"));
@@ -78,6 +77,8 @@ public class ApiCalls {
                 serie.setDescription(jsonSerie.getString("description"));
 
                 series.add(serie);
+
+                Log.d(jsonSerie.getString("name"),Integer.toString(jsonSerie.getInt("id")));
             }
 
         } catch (JSONException e) {
@@ -108,7 +109,7 @@ public class ApiCalls {
         ArrayList<Episode> episodes = new ArrayList<>();
         try {
             //20814
-            for (int i = 0; i <600  ; i+=100) {
+            for (int i = 0; i <100  ; i+=100) {
                 url += "&offset=" + String.valueOf(i) + "&format=json";
 
                 String JsonResponse = HttpUtils.get(url);
@@ -135,25 +136,20 @@ public class ApiCalls {
             for (int i = 0; i < jsonEpisodes.length(); i++) {
                 JSONObject jsonEpisode = jsonEpisodes.getJSONObject(i);
 
-
-                //int serieID=(jsonEpisode.getJSONObject("series").getInt("id"));
-
-                //Añadimos solo los episodios de la serie.
-//                if (serieID==id) {
                     Episode episode = new Episode();
 
                     //Metemos los datos sacados del json en nuestro objeto.
-
 
                     episode.setName(jsonEpisode.getString("name"));
                     episode.setImageThumb(jsonEpisode.getJSONObject("image").getString("icon_url"));
                     episode.setSerie(jsonEpisode.getJSONObject("series").getString("name"));
                     episode.setSerieID(jsonEpisode.getJSONObject("series").getInt("id"));
                     episode.setNumber(jsonEpisode.getString("episode_number"));
-                    //episode.setChek(0);
-
-
+                    episode.setVista(0);
                     episodes.add(episode);
+
+                    Log.d(jsonEpisode.getString("name"), jsonEpisode.getJSONObject("series").getString("name"));
+
                 }
 //            }
 

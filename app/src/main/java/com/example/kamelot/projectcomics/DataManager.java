@@ -51,13 +51,12 @@ public class DataManager {
         cupboard().withContext(context).get(serieUri, Serie.class);
     }
 
-    static void updateItem (Context context, String id, int fav){
+    static void updateSerie (Context context, String id, int fav){
         ContentValues values = new ContentValues(1);
         values.put("fav", fav);
 
         cupboard().withContext(context).update(serieUri, values, "serieID = ?", id );
     }
-
 
     static CursorLoader getCursorLoader (Context context, Boolean episode) {
 
