@@ -18,7 +18,7 @@ public class ContentProvider extends CupboardContentProvider {
 
     }
 
-    protected ContentProvider() {
+    public ContentProvider() {
         super(authority, 1);
     }
 }

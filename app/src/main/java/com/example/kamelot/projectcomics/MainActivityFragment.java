@@ -152,6 +152,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
             DataManager.deleteBD(getContext());
             DataManager.crearBD(resultSerie, resultEpisode, getContext());
+            DataManager.crearBD(resultSerie, resultEpisode, getContext());
 
             return null;
         }

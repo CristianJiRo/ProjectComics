@@ -51,7 +51,7 @@ public class DataManager {
         cupboard().withContext(context).get(serieUri, Serie.class);
     }
 
-    static void updateItem (Context context, String id, String fav){
+    static void updateItem (Context context, String id, int fav){
         ContentValues values = new ContentValues(1);
         values.put("fav", fav);
 

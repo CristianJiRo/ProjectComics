@@ -13,6 +13,12 @@ public class Episode implements Serializable {
     private int serieID;
     private String imageThumb;
     private String number;
+//    private int check;
+//
+//
+//    public int getCheck() {return check;}
+//
+//    public void setChek(int fav) {this.check = fav;    }
 
     public String getNumber() {
         return number;

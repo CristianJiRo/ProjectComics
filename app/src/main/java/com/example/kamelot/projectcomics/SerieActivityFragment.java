@@ -77,7 +77,7 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
         String ID = Integer.toString(serieID);
         Log.d("ID---------------------", ID);
 
-        if (serie.isFav()){
+        if (serie.getFav() ==1){
 
             binding.ibFav.setImageResource(R.drawable.ic_fav);
         }
@@ -90,14 +90,18 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
             @Override
             public void onClick(View v) {
 
+                if (serie.getFav()==0){
+                    serie.setFav(1);
+                }
+                else {
 
-                serie.setFav(!serie.isFav());
+                    serie.setFav(0);
 
-                String fav = Boolean.toString(serie.isFav());
+                }
 
-                Log.d("Favorito:    ", fav);
+                Log.d("Favorito:    ", Integer.toString(serie.getFav()));
 
-                dm.updateItem(getContext(),Integer.toString(serie.getSerieID()) , fav );
+                dm.updateItem(getContext(),Integer.toString(serie.getSerieID()) , serie.getFav());
 
                 updateUi(serie);
             }

@@ -46,6 +46,7 @@ public class ApiCalls {
                 String JsonResponse = HttpUtils.get(url);
                 ArrayList<Serie> pagina = processJsonSerie(JsonResponse);
                 series.addAll(pagina);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,14 +66,14 @@ public class ApiCalls {
                 JSONObject jsonSerie = jsonSeries.getJSONObject(i);
 
                 Serie serie = new Serie();
+                Log.d("Serie pagina: ", Integer.toString(i));
 
                 //Metemos los datos sacados del json en nuestro objeto.
                 serie.setImageThumb(jsonSerie.getJSONObject("image").getString("icon_url"));
                 serie.setName(jsonSerie.getString("name"));
                 serie.setTotalepisodes(jsonSerie.getString("count_of_episodes"));
                 serie.setSerieID(jsonSerie.getInt("id"));
-
-                serie.setFav(false);
+                serie.setFav(0);
 
                 serie.setDescription(jsonSerie.getString("description"));
 
@@ -112,7 +113,7 @@ public class ApiCalls {
 
                 String JsonResponse = HttpUtils.get(url);
                 ArrayList<Episode> pagina  = processJsonEpisode(JsonResponse);
-                Log.d("pagina:--------- ", Integer.toString(i));
+
                 episodes.addAll(pagina);
 
             }
@@ -149,6 +150,7 @@ public class ApiCalls {
                     episode.setSerie(jsonEpisode.getJSONObject("series").getString("name"));
                     episode.setSerieID(jsonEpisode.getJSONObject("series").getInt("id"));
                     episode.setNumber(jsonEpisode.getString("episode_number"));
+                    //episode.setChek(0);
 
 
                     episodes.add(episode);
