@@ -15,6 +15,12 @@ public class Episode implements Serializable {
     private String number;
     private int vista;
 
+    private int episodeID;
+
+    public int getEpisodeID() {return episodeID;}
+
+    public void setEpisodeID(int episodeID) {this.episodeID = episodeID;}
+
     public int getVista() {return vista;}
 
     public void setVista(int vista) {this.vista = vista;}

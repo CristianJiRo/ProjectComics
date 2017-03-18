@@ -58,6 +58,12 @@ public class DataManager {
         cupboard().withContext(context).update(serieUri, values, "serieID = ?", id );
     }
 
+    static void updateEpisode (Context context, String id, int vista){
+        ContentValues values = new ContentValues(1);
+        values.put("vista", vista);
+        cupboard().withContext(context).update(episodeUri, values, "episodeID = ?", id);
+    }
+
     static CursorLoader getCursorLoader (Context context, Boolean episode) {
 
         if(episode){

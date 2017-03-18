@@ -145,6 +145,7 @@ public class ApiCalls {
                     episode.setSerie(jsonEpisode.getJSONObject("series").getString("name"));
                     episode.setSerieID(jsonEpisode.getJSONObject("series").getInt("id"));
                     episode.setNumber(jsonEpisode.getString("episode_number"));
+                    episode.setEpisodeID(jsonEpisode.getInt("id"));
                     episode.setVista(0);
                     episodes.add(episode);
 

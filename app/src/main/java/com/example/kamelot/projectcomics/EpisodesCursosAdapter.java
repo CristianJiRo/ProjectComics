@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.kamelot.projectcomics.databinding.EpisodeCeldaBinding;
-import com.example.kamelot.projectcomics.databinding.SerieCeldaBinding;
 
 /**
  * Created by Kamelot on 24/02/2017.
@@ -44,7 +43,6 @@ public class EpisodesCursosAdapter extends CupBoardCursorAdapter<Episode> {
         if (model.getVista()==0) {
 
             binding.ivVisto.setImageResource(R.drawable.ic_no_vista);
-
         }
         else {
 
