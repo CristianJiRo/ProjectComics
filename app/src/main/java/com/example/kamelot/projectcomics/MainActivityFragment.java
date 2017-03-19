@@ -119,7 +119,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return DataManager.getCursorLoader(getContext(), false);
+        return DataManager.getCursorLoader(getContext(), 1);
     }
 
     @Override

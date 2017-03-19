@@ -10,18 +10,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".SerieActivity"
             android:label="@string/title_activity_serie"
@@ -33,10 +31,14 @@
         </activity>
 
         <provider
-            android:authorities="${applicationId}.provider"
             android:name=".ContentProvider"
-            android:exported="false"/>
+            android:authorities="${applicationId}.provider"
+            android:exported="false" />
 
+        <activity
+            android:name=".FavoritasActivity"
+            android:label="@string/title_activity_favoritas"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

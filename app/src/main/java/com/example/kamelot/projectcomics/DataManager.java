@@ -64,26 +64,37 @@ public class DataManager {
         cupboard().withContext(context).update(episodeUri, values, "episodeID = ?", id);
     }
 
-    static CursorLoader getCursorLoader (Context context, Boolean episode) {
+    static CursorLoader getCursorLoader (Context context, int option) {
 
-        if(episode){
+//        0 = Episodios de la serie seleccionada.
+//        1 = Todas las series.
+//        2 = Series Favoritas.
+
+        if (option == 0) {
 
             preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-            Log.d("selected_id----------",preferences.getString("selected_id", "8"));
+            Log.d("selected_id----------", preferences.getString("selected_id", "8"));
 
             String idSerie = preferences.getString("selected_id", "8");
             String selection = "( serieID =?)";
-            String [] selectionArgs = new String[1];
-            selectionArgs[0] =idSerie;
+            String[] selectionArgs = new String[1];
+            selectionArgs[0] = idSerie;
 
-            return new CursorLoader(context, episodeUri, null, selection, selectionArgs,  null );
+            return new CursorLoader(context, episodeUri, null, selection, selectionArgs, null);
+        }
+        else if (option == 1) {
+
+            return new CursorLoader(context, serieUri, null, null, null, null);
         }
         else {
 
-            return new CursorLoader(context, serieUri, null, null, null, null );
-        }
+            String sel = "( fav =?)";
+            String[] selArgs = new String[1];
+            selArgs[0] = "1";
 
+            return new CursorLoader(context, serieUri, null, sel, selArgs, null);
+        }
 
     }
 

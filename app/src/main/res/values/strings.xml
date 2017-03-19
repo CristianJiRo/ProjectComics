@@ -5,4 +5,5 @@
 
     <bool name="first_time">true</bool>
     <string name="selected_id">8</string>
+    <string name="title_activity_favoritas">FavoritasActivity</string>
 </resources>

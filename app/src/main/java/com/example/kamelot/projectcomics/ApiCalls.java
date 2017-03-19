@@ -71,7 +71,7 @@ public class ApiCalls {
                 serie.setImageThumb(jsonSerie.getJSONObject("image").getString("icon_url"));
                 serie.setName(jsonSerie.getString("name"));
                 serie.setTotalepisodes(jsonSerie.getString("count_of_episodes"));
-                serie.setSerieID(jsonSerie.getInt("id"));
+                serie.setSerieID(jsonSerie.getInt("id")+100);
                 serie.setFav(0);
 
                 serie.setDescription(jsonSerie.getString("description"));
@@ -108,13 +108,16 @@ public class ApiCalls {
 
         ArrayList<Episode> episodes = new ArrayList<>();
         try {
-            //20814
-            for (int i = 0; i <100  ; i+=100) {
+
+            //int pagTotales= 20814; //Bajarlos todos tarda demasiado...
+            int pagTotales = 600;
+            for (int i = 0; i <pagTotales  ; i+=100) {
                 url += "&offset=" + String.valueOf(i) + "&format=json";
 
                 String JsonResponse = HttpUtils.get(url);
                 ArrayList<Episode> pagina  = processJsonEpisode(JsonResponse);
 
+                Log.d("Episode Page:", Integer.toString(i));
                 episodes.addAll(pagina);
 
             }
@@ -143,7 +146,7 @@ public class ApiCalls {
                     episode.setName(jsonEpisode.getString("name"));
                     episode.setImageThumb(jsonEpisode.getJSONObject("image").getString("icon_url"));
                     episode.setSerie(jsonEpisode.getJSONObject("series").getString("name"));
-                    episode.setSerieID(jsonEpisode.getJSONObject("series").getInt("id"));
+                    episode.setSerieID(jsonEpisode.getJSONObject("series").getInt("id")+100);
                     episode.setNumber(jsonEpisode.getString("episode_number"));
                     episode.setEpisodeID(jsonEpisode.getInt("id"));
                     episode.setVista(0);
