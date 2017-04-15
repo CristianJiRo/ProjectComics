@@ -76,7 +76,21 @@ public class ApiCalls {
                 serie.setName(jsonSerie.getString("name"));
                 serie.setTotalepisodes(jsonSerie.getString("count_of_episodes"));
                 serie.setSerieID(jsonSerie.getInt("id"));
-                serie.setFav(0);
+
+
+                //Hay muchos capitulos y bajarlos todos es una locura (me bloquea el PC), asi que fuerzo varias series como favoritas que tienen
+                //episodios para poder comprobar las funcionalidades de forma comoda.
+
+                if (serie.getSerieID() == 4 || serie.getSerieID() == 3 || serie.getSerieID() == 17 || serie.getSerieID() == 31
+                        ||serie.getSerieID() == 65 || serie.getSerieID() == 32 || serie.getSerieID() == 54 ||
+                        serie.getSerieID() == 28 )
+                {
+                    serie.setFav(1);
+                }
+                else {
+
+                    serie.setFav(0);
+                }
 
                 serie.setDescription(jsonSerie.getString("description"));
                 series.add(serie);
@@ -113,7 +127,7 @@ public class ApiCalls {
         try {
 
             //int pagTotales= 20814; //Bajarlos todos tarda demasiado...
-            int pagTotales = 600;
+            int pagTotales = 1600;
             for (int i = 0; i <pagTotales  ; i+=100) {
                 url += "&offset=" + String.valueOf(i) + "&format=json";
 
@@ -155,7 +169,7 @@ public class ApiCalls {
                     episode.setVista(0);
                     episodes.add(episode);
 
-                    Log.d(jsonEpisode.getString("name"), jsonEpisode.getJSONObject("series").getString("name"));
+                    Log.d("EPISODIO : "+ episode.getSerieID() +jsonEpisode.getString("name"), jsonEpisode.getJSONObject("series").getString("name"));
 
                 }
 //            }

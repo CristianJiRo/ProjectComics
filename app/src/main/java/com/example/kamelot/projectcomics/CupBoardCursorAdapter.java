@@ -21,9 +21,9 @@ public abstract class CupBoardCursorAdapter<T> extends CursorAdapter {
         this(context, cupboard(), entityClass, null);
     }
 
-//    public CupBoardCursorAdapter(Context context, Class<T> entityClass, int serieID) {
-//        this(context, cupboard(), entityClass, null);
-//    }
+    public CupBoardCursorAdapter(Context context, Class<T> entityClass, int serieID) {
+        this(context, cupboard(), entityClass, null);
+    }
 
     public CupBoardCursorAdapter(Context context, Cupboard cupboard, Class<T> entityClass) {
         this(context, cupboard, entityClass, null);
@@ -50,6 +50,7 @@ public abstract class CupBoardCursorAdapter<T> extends CursorAdapter {
     }
 
     public T getItem(int position) {
+
         if (getCursor().moveToPosition(position)) {
             return mCupboard.withCursor(getCursor()).get(mEntityClass);
         } else {
