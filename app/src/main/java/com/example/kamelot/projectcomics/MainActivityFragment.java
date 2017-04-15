@@ -149,9 +149,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
             ArrayList<Episode> resultEpisode =api.getEpisodes();
             ArrayList<Serie> resultSerie = api.getSeries();
-
             DataManager.deleteBD(getContext());
-            DataManager.crearBD(resultSerie, resultEpisode, getContext());
             DataManager.crearBD(resultSerie, resultEpisode, getContext());
 
             return null;

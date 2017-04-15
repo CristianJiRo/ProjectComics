@@ -1,4 +1,6 @@
 package com.example.kamelot.projectcomics;
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +11,9 @@ import java.net.URL;
 
 public class HttpUtils {
     public static String get(String dataUrl) throws IOException {
+
         URL url = new URL(dataUrl);
+        Log.d("URL", dataUrl);
         String response = null;
 
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -32,6 +36,7 @@ public class HttpUtils {
             response.append('\r');
         }
         rd.close();
+        Log.d("http", response.toString());
         return response.toString();
     }
 }

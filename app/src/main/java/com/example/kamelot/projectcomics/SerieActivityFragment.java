@@ -144,7 +144,7 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         //0 = episodios
-        return DataManager.getCursorLoader(getContext(),2);
+        return DataManager.getCursorLoader(getContext(),0);
     }
 
     @Override

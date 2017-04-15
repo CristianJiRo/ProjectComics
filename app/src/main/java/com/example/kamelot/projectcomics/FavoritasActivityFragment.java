@@ -72,7 +72,7 @@ public class FavoritasActivityFragment extends Fragment implements LoaderManager
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return DataManager.getCursorLoader(getContext(), 2);
+        return DataManager.getCursorLoader(getContext(), 1);
     }
 
     @Override

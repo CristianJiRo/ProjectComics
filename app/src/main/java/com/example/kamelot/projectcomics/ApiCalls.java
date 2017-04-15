@@ -18,10 +18,12 @@ import java.util.ArrayList;
 public class ApiCalls {
 
     private final String seriesURL =
-            "http://comicvine.gamespot.com/api/series_list/?api_key=37953f46b5d8c2f9b10d8cd2d37b0861519a0d3d&sort=name:asc";
+            "https://comicvine.gamespot.com/api/series_list/?api_key=37953f46b5d8c2f9b10d8cd2d37b0861519a0d3d&sort=name:asc";
 
     private final String episodesURL =
-            "http://comicvine.gamespot.com/api/episodes/?api_key=37953f46b5d8c2f9b10d8cd2d37b0861519a0d3d";
+            "https://comicvine.gamespot.com/api/episodes/?api_key=37953f46b5d8c2f9b10d8cd2d37b0861519a0d3d";
+
+    //http://comicvine.gamespot.com/api/series_list/?api_key=37953f46b5d8c2f9b10d8cd2d37b0861519a0d3d&sort=name:asc&format=json
 
     //Procesado para las Series.
 
@@ -46,6 +48,7 @@ public class ApiCalls {
                 String JsonResponse = HttpUtils.get(url);
                 ArrayList<Serie> pagina = processJsonSerie(JsonResponse);
                 series.addAll(pagina);
+                Log.d("Serie Page:", Integer.toString(i));
 
             }
         } catch (IOException e) {
@@ -62,6 +65,7 @@ public class ApiCalls {
         try {
             JSONObject data = new JSONObject(jsonResponse);
             JSONArray jsonSeries = data.getJSONArray("results");
+
             for (int i = 0; i < jsonSeries.length(); i++) {
                 JSONObject jsonSerie = jsonSeries.getJSONObject(i);
 
@@ -71,11 +75,10 @@ public class ApiCalls {
                 serie.setImageThumb(jsonSerie.getJSONObject("image").getString("icon_url"));
                 serie.setName(jsonSerie.getString("name"));
                 serie.setTotalepisodes(jsonSerie.getString("count_of_episodes"));
-                serie.setSerieID(jsonSerie.getInt("id")+100);
+                serie.setSerieID(jsonSerie.getInt("id"));
                 serie.setFav(0);
 
                 serie.setDescription(jsonSerie.getString("description"));
-
                 series.add(serie);
 
                 Log.d(jsonSerie.getString("name"),Integer.toString(jsonSerie.getInt("id")));
@@ -146,7 +149,7 @@ public class ApiCalls {
                     episode.setName(jsonEpisode.getString("name"));
                     episode.setImageThumb(jsonEpisode.getJSONObject("image").getString("icon_url"));
                     episode.setSerie(jsonEpisode.getJSONObject("series").getString("name"));
-                    episode.setSerieID(jsonEpisode.getJSONObject("series").getInt("id")+100);
+                    episode.setSerieID(jsonEpisode.getJSONObject("series").getInt("id"));
                     episode.setNumber(jsonEpisode.getString("episode_number"));
                     episode.setEpisodeID(jsonEpisode.getInt("id"));
                     episode.setVista(0);

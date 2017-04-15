@@ -87,13 +87,18 @@ public class DataManager {
 
             return new CursorLoader(context, serieUri, null, null, null, null);
         }
-        else {
+        else if (option == 2){
 
             String sel = "( fav =?)";
             String[] selArgs = new String[1];
             selArgs[0] = "1";
 
             return new CursorLoader(context, serieUri, null, sel, selArgs, null);
+        }
+
+        else {
+
+            return null;
         }
 
     }
