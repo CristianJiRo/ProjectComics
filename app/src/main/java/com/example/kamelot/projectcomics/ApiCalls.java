@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Created by Kamelot on 05/01/2017.
@@ -72,6 +73,7 @@ public class ApiCalls {
                 Serie serie = new Serie();
 
                 //Metemos los datos sacados del json en nuestro objeto.
+
                 serie.setImageThumb(jsonSerie.getJSONObject("image").getString("icon_url"));
                 serie.setName(jsonSerie.getString("name"));
                 serie.setTotalepisodes(jsonSerie.getString("count_of_episodes"));
@@ -180,5 +182,8 @@ public class ApiCalls {
 
         return episodes;
     }
+
+
+
 
 }

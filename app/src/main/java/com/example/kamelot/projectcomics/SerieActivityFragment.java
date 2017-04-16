@@ -86,13 +86,23 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
         getLoaderManager().initLoader(0, null, this);
 
         Glide.with(getContext()).load(serie.getImageThumb()).into(binding.ivSerieDetail);
-        binding.tvSerieName.setText(serie.getName());
+
+        String titulo = "";
+        int maxLong = 17;
+        titulo = serie.getName();
+
+        if (titulo.length() > maxLong){
+            titulo = HttpUtils.addLinebreaks(titulo, maxLong);
+
+        }
+
+        binding.tvSerieName.setText(titulo);
 
         //Para quitar las etiquetas HTML, el metodo esta deprecated, pero la aternativa solo funciona en Apis superiores a esta.
         String descripcion = Html.fromHtml(serie.getDescription()).toString();
         binding.tvDescription.setText(descripcion);
         binding.tvDescription.setMovementMethod(new ScrollingMovementMethod());
-        binding.tvEpisodesCount.setText("0/"+serie.getTotalepisodes());
+        binding.tvEpisodesCount.setText("Episodios: "+serie.getTotalepisodes());
         serieID = serie.getSerieID();
         String ID = Integer.toString(serieID);
         Log.d("ID---------------------", ID);

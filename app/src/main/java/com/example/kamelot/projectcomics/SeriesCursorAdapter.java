@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.kamelot.projectcomics.databinding.SerieCeldaBinding;
 
+import java.util.StringTokenizer;
+
 /**
  * Created by Kamelot on 18/01/2017.
  */
@@ -36,8 +38,19 @@ public class SeriesCursorAdapter extends  CupBoardCursorAdapter<Serie> {
         SerieCeldaBinding binding = DataBindingUtil.getBinding(view);
 
         //Introducción de los datos.
-        binding.tvTitle.setText(model.getName());
-        binding.tvEpiTot.setText("0/"+model.getTotalepisodes());
+
+        //Añadir salto de linia si el titulo es muy largo.
+        String titulo = "";
+        int maxLong = 17;
+        titulo = model.getName();
+
+        if (titulo.length() > maxLong){
+            titulo = HttpUtils.addLinebreaks(titulo, maxLong);
+
+        }
+
+        binding.tvTitle.setText(titulo);
+        binding.tvEpiTot.setText("Episodios: "+model.getTotalepisodes());
         Glide.with(context).load(model.getImageThumb()).into(binding.ivPoster);
 
         if (model.getFav()==1){
@@ -50,4 +63,7 @@ public class SeriesCursorAdapter extends  CupBoardCursorAdapter<Serie> {
         }
 
     }
+
+
+
 }

@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.StringTokenizer;
 
 public class HttpUtils {
     public static String get(String dataUrl) throws IOException {
@@ -38,5 +39,22 @@ public class HttpUtils {
         rd.close();
         Log.d("http", response.toString());
         return response.toString();
+    }
+
+    public static String addLinebreaks(String input, int maxLineLength) {
+        StringTokenizer tok = new StringTokenizer(input, " ");
+        StringBuilder output = new StringBuilder(input.length());
+        int lineLen = 0;
+        while (tok.hasMoreTokens()) {
+            String word = tok.nextToken();
+
+            if (lineLen + word.length() > maxLineLength) {
+                output.append("\r\n");
+                lineLen = 0;
+            }
+            output.append(word+" ");
+            lineLen += word.length();
+        }
+        return output.toString();
     }
 }

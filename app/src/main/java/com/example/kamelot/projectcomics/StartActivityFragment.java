@@ -66,9 +66,6 @@ public class StartActivityFragment extends Fragment implements LoaderManager.Loa
         }
 
 
-
-
-
         binding.btSeries0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
