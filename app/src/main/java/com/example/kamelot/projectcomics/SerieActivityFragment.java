@@ -55,7 +55,7 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
             }
         }
 
-        binding.lvEpisodes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.lvEpisodes2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Episode episode = (Episode) parent.getItemAtPosition(position);
@@ -81,15 +81,14 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
 
         adapter = new EpisodesCursosAdapter(getContext(),Episode.class);
 
-        binding.lvEpisodes.setAdapter(adapter);
+        binding.lvEpisodes2.setAdapter(adapter);
 
         getLoaderManager().initLoader(0, null, this);
 
         Glide.with(getContext()).load(serie.getImageThumb()).into(binding.ivSerieDetail);
 
-        String titulo = "";
         int maxLong = 17;
-        titulo = serie.getName();
+        String titulo = serie.getName();
 
         if (titulo.length() > maxLong){
             titulo = HttpUtils.addLinebreaks(titulo, maxLong);
@@ -169,4 +168,9 @@ public class SerieActivityFragment extends Fragment implements LoaderManager.Loa
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUi(serie);
+    }
 }
