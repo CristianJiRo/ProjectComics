@@ -54,24 +54,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         Log.d("Dibujado", "XXXXXXx");
 
         getLoaderManager().initLoader(0, null, this);
-//
-//        if (preferences.getBoolean("first_time", true)){
-//
-//            editor.putBoolean("first_time", false);
-//            dialog = new ProgressDialog(getContext());
-//            dialog.setCanceledOnTouchOutside(false);
-//            dialog.setMessage("Loading...");
-//            Log.d("Crear base de datos", "");
-//            refresh();
-//
-//        }
-//        else {
-//
-//
-//            dm.obtenerBD(getContext());
-//            Log.d("Recuperacion de datos", "");
-//
-//        }
 
         adapter = new SeriesCursorAdapter(getContext(),Serie.class);
 
@@ -105,12 +87,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
     }
 
-//    private void refresh(){
-//
-//        RefreshDataTask task = new RefreshDataTask();
-//        task.execute();
-//    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -134,30 +110,4 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         adapter.swapCursor(null);
 
     }
-
-//    private class RefreshDataTask extends AsyncTask<Void, Void, Void>{
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            dialog.show();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//
-//            ApiCalls api = new ApiCalls();
-//
-//            ArrayList<Episode> resultEpisode =api.getEpisodes();
-//            ArrayList<Serie> resultSerie = api.getSeries();
-//            DataManager.deleteBD(getContext());
-//            DataManager.crearBD(resultSerie, resultEpisode, getContext());
-//
-//            return null;
-//        }
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//            dialog.dismiss();
-//        }
-//    }
 }
